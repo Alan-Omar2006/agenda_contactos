@@ -1,0 +1,8 @@
+body { margin: 0; font-family: Arial, sans-serif; background: #f3f4f6; color: #111827; }
+.container { max-width: 900px; margin: 40px auto; padding: 20px; }
+.card, .contacto { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+.form { display: grid; gap: 10px; }
+input { padding: 12px; border: 1px solid #d1d5db; border-radius: 10px; }
+button { padding: 10px 14px; border: none; border-radius: 10px; cursor: pointer; background: #2563eb; color: white; margin-right: 8px; }
+button.danger { background: #dc2626; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 20px; }
