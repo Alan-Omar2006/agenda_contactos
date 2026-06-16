@@ -8,6 +8,7 @@ function App() {
   const [contactos, setContactos] = useState([]);
   const [form, setForm] = useState({ nombre: '', telefono: '', email: '' });
   const [editando, setEditando] = useState(null);
+  const [mostrarAcerca, setMostrarAcerca] = useState(false);
 
   const cargarContactos = async () => {
     const res = await fetch(`${API_URL}/api/contactos`);
@@ -20,11 +21,13 @@ function App() {
     e.preventDefault();
     const url = editando ? `${API_URL}/api/contactos/${editando}` : `${API_URL}/api/contactos`;
     const method = editando ? 'PUT' : 'POST';
+
     await fetch(url, {
       method,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form)
     });
+
     setForm({ nombre: '', telefono: '', email: '' });
     setEditando(null);
     cargarContactos();
@@ -43,8 +46,15 @@ function App() {
   return (
     <main className="container">
       <section className="card">
-        <h1>Agenda de Contactos</h1>
-        <p>Proyecto simple con React, Vite, Express y PostgreSQL.</p>
+        <div className="header">
+          <h1>Agenda de Contactos</h1>
+          <button type="button" className="about-btn" onClick={() => setMostrarAcerca(true)}>
+            Acerca de
+          </button>
+        </div>
+
+        <p>Administra tus contactos de forma rápida y sencilla.</p>
+
         <form onSubmit={guardar} className="form">
           <input placeholder="Nombre" value={form.nombre} onChange={e => setForm({ ...form, nombre: e.target.value })} />
           <input placeholder="Teléfono" value={form.telefono} onChange={e => setForm({ ...form, telefono: e.target.value })} />
@@ -64,6 +74,27 @@ function App() {
           </article>
         ))}
       </section>
+
+      {mostrarAcerca && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Acerca de</h2>
+            <p><strong>Tecnologías utilizadas:</strong></p>
+            <ul>
+              <li>Frontend: React + Vite</li>
+              <li>Lenguaje: JavaScript</li>
+              <li>Backend: Node.js + Express</li>
+              <li>Base de datos: PostgreSQL</li>
+              <li>Base de datos en la nube: Supabase</li>
+              <li>Hospedaje backend: Render</li>
+              <li>Hospedaje frontend: Vercel</li>
+            </ul>
+            <button type="button" onClick={() => setMostrarAcerca(false)}>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
